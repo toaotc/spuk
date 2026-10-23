@@ -51,7 +51,7 @@ class CalendarController extends AbstractController
 
         $calendar = new Calendar();
         foreach ($appointments as $appointment) {
-            $event = new Event(new UniqueIdentifier((string)$appointment->getId()))
+            $event = (new Event(new UniqueIdentifier((string)$appointment->getId())))
                 ->setSummary($appointment->getTitle())
                 ->setOccurrence(new TimeSpan(
                     new DateTime($appointment->getStartAt(), false),
