@@ -6,6 +6,9 @@ config:
   shared_files:
       - .env.local
       - database.sqlite
+  shared_dirs:
+      - var/log
+      - var/share
 
 hosts:
   hadar.uberspace.de:
