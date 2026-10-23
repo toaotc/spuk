@@ -1,0 +1,18 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency: production_environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deployer
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy

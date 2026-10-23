@@ -1,0 +1,31 @@
+import:
+  - recipe/symfony.php
+
+config:
+  repository: 'https://github.com/toaotc/spuk.git'
+  shared_files:
+      - .env.local
+      - database.sqlite
+
+hosts:
+  hadar.uberspace.de:
+    http_user: toaotc
+    remote_user: toaotc
+    deploy_path: '/var/www/virtual/toaotc/spuk'
+
+tasks:
+  build:
+    - run: uptime
+  deploy:assets:build:
+    - run: 'cd {{release_or_current_path}} && {{bin/console}} tailwind:build --minify {{console_options}}'
+    - run: 'cd {{release_or_current_path}} && {{bin/console}} asset-map:compile {{console_options}}'
+  deploy:success:restart:php:
+      - run: 'uberspace tools restart php'
+
+before:
+  deploy:symlink: database:migrate
+  database:migrate: deploy:assets:build
+
+after:
+  deploy:failed: deploy:unlock
+  deploy:success: deploy:success:restart:php
