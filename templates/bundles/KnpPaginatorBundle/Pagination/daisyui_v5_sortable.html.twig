@@ -1,0 +1,9 @@
+<a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
+    {{ title }}
+    {% if sorted %}
+        <span class="{{ direction != 'desc' ? 'opacity-50' }}">&uarr;</span>
+        <span class="{{ direction != 'asc' ? 'opacity-50' }}">&darr;</span>
+    {% else %}
+        <span class="opacity-50">&uarr;&darr;</span>
+    {% endif %}
+</a>

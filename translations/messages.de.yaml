@@ -1,0 +1,68 @@
+Active: Aktiv
+appointment: Termin
+Appointment: Termin
+Appointments: Termine
+Attendees: Teilnehmer
+Calendar: Kalender
+Cancel: Abbrechen
+Children: Kinder
+Create %name%: "%name% erstellen"
+Delete: Löschen
+Description: Beschreibung
+Are you sure you want to delete "%name%"?: Soll "%name%" wirklich gelöscht werden?
+Edit: Bearbeiten
+Edit "%name%": '"%name%" bearbeiten'
+End at: Ende
+From: Von
+guardian: Elternteil
+Guardian: Elternteil
+Guardians: Elternteile
+When this switch is activated, the current calendar link will no longer be usable, and a new one will be created.: Wenn dieser Schalter aktiviert wird, ist der aktuelle Kalender-Link nicht mehr verwendbar und es wird ein neuer Kalender-Link erstellt.
+kid group: Gruppe
+Kid group: Gruppe
+Kid groups: Gruppen
+kid: Kind
+Kid: Kind
+Kids: Kinder
+Link to calendars .ics-file: Link zur .ics-Datei des Kalenders
+Link was copied to clipboard: Link wurde in die Zwischenablage kopiert
+Log in: Anmelden
+Name: Name
+No results found: Keine Ergebnisse gefunden
+Password: Passwort
+Password repeat: Passwort wiederholen
+Please sign in: Bitte anmelden
+Renew calendar link: Kalender-Link erneuern
+Roles: Rollen
+Title: Titel
+Save: Speichern
+Search: Suchen
+Show calendar: Kalender anzeigen
+Sign in: Einloggen
+Start at: Beginn
+To: Bis
+Update: Aktualisieren
+user: Benutzer
+User: Benutzer
+Username: Benutzername
+Users: Benutzer
+ROLE_CREATE_APPOINTMENT: Termin erstellen
+ROLE_READ_APPOINTMENT: Termin lesen
+ROLE_UPDATE_APPOINTMENT: Termin aktualisieren
+ROLE_DELETE_APPOINTMENT: Termin löschen
+ROLE_CREATE_GUARDIAN: Elternteil erstellen
+ROLE_READ_GUARDIAN: Elternteil lesen
+ROLE_UPDATE_GUARDIAN: Elternteil aktualisieren
+ROLE_DELETE_GUARDIAN: Elternteil löschen
+ROLE_CREATE_KID: Kind erstellen
+ROLE_READ_KID: Kind lesen
+ROLE_UPDATE_KID: Kind aktualisieren
+ROLE_DELETE_KID: Kind löschen
+ROLE_CREATE_KID_GROUP: Gruppe erstellen
+ROLE_READ_KID_GROUP: Gruppe lesen
+ROLE_UPDATE_KID_GROUP: Gruppe aktualisieren
+ROLE_DELETE_KID_GROUP: Gruppe löschen
+ROLE_CREATE_USER: Benutzer erstellen
+ROLE_READ_USER: Benutzer lesen
+ROLE_UPDATE_USER: Benutzer aktualisieren
+ROLE_DELETE_USER: Benutzer löschen

@@ -1,0 +1,4 @@
+knp_paginator:
+    template:
+        pagination: '@KnpPaginator/Pagination/daisyui_v5_pagination.html.twig'
+        sortable: '@KnpPaginator/Pagination/daisyui_v5_sortable.html.twig'

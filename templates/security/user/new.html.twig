@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}{% endblock %}
+
+{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}{% endblock %}
+
+{% block main_content %}
+    {{ include('security/user/_form.html.twig') }}
+{% endblock %}

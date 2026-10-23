@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block _guardian_renew_uuid_row %}
+    {{ form_row(form, {
+        label: 'Renew calendar link',
+        help: 'When this switch is activated, the current calendar link will no longer be usable, and a new one will be created.',
+        attr: {class: 'toggle toggle-xs btn-check'}
+    }) }}
+{% endblock %}
+
+{% block title %}{{ 'Edit "%name%"'|trans({'%name%': guardian.name}) }}{% endblock %}
+
+{%- block main_header_title -%}{{ 'Edit "%name%"'|trans({'%name%': guardian.name}) }}{%- endblock -%}
+
+{%- block main_header_button -%}
+    {{ is_granted('ROLE_DELETE_GUARDIAN') ? include('guardian/_delete_form.html.twig') }}
+{%- endblock -%}
+
+{% block main_content %}
+    {% form_theme form _self %}
+    {{ include('guardian/_form.html.twig', {'button_label': 'Update'|trans}) }}
+{% endblock %}

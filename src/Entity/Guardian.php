@@ -1,0 +1,115 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity;
+
+use App\Repository\GuardianRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\UuidV7;
+use Symfony\Component\Validator\Constraints as Assert;
+
+#[ORM\Entity(repositoryClass: GuardianRepository::class)]
+class Guardian
+{
+    use TimestampableTrait;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    /**
+     * @var Collection<int, Kid>
+     */
+    #[ORM\ManyToMany(targetEntity: Kid::class, inversedBy: 'guardians', fetch: 'EXTRA_LAZY')]
+    private Collection $kids;
+
+    #[ORM\Column]
+    private bool $active = true;
+
+    #[ORM\Column(type: UuidType::NAME)]
+    private UuidV7 $uuid;
+
+    public function __construct()
+    {
+        $this->kids = new ArrayCollection();
+        $this->uuid = Uuid::v7();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kid>
+     */
+    public function getKids(): Collection
+    {
+        return $this->kids;
+    }
+
+    public function addKid(Kid $kid): static
+    {
+        if (!$this->kids->contains($kid)) {
+            $this->kids->add($kid);
+            $kid->addGuardian($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKid(Kid $kid): static
+    {
+        if ($this->kids->removeElement($kid)) {
+            $kid->removeGuardian($this);
+        }
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getUuid(): UuidV7
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(UuidV7 $uuid): static
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+}

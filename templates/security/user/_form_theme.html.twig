@@ -1,0 +1,9 @@
+{% block _user_plain_password_first_label %}
+    {%- set label = 'Password' -%}
+    {{- block('form_label') -}}
+{% endblock %}
+
+{% block _user_plain_password_second_label %}
+    {%- set label = 'Password repeat' -%}
+    {{- block('form_label') -}}
+{% endblock %}

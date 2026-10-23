@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Appointment'|trans }}{% endblock %}
+
+{%- block main_header_title -%}{{ 'Appointments'|trans }}{%- endblock -%}
+
+{%- block main_header_button -%}
+    {%- if is_granted('ROLE_CREATE_APPOINTMENT') -%}
+        <a class="btn btn-outline" href="{{ path('app_appointment_new') }}">{{ 'Create %name%'|trans({'%name%': 'appointment'|trans}) }}</a>
+    {%- endif -%}
+{%- endblock -%}
+
+{% block main_content %}
+    <div class="overflow-x-auto rounded bg-base-200">
+        <div class="flex flex-wrap items-baseline justify-between px-3">
+            {{ knp_pagination_render(pager) }}
+            {{ form_start(form, {attr: {class: 'flex gap-3 items-baseline'}}) }}
+                {{ form_errors(form) }}
+                {{ form_widget(form, {attr: {class: 'flex gap-3 items-baseline [&>*]:flex [&>*]:gap-3 [&>*]:items-baseline'}}) }}
+                <button class="btn btn-primary" type="submit">{{ 'Search'|trans }}</button>
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+
+
+        <table class="table table-pin-rows table-pin-cols [&_*]:align-baseline">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ knp_pagination_sortable(pager, 'Title'|trans, 'appointment.title') }}</th>
+                    <th>{{ knp_pagination_sortable(pager, 'Description'|trans, 'appointment.description') }}</th>
+                    <th>{{ knp_pagination_sortable(pager, 'Start at'|trans, 'appointment.startAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pager, 'End at'|trans, 'appointment.endAt') }}</th>
+                    <th>{{ 'Children'|trans }}</th>
+                    <th>{{ knp_pagination_sortable(pager, 'Active'|trans, 'appointment.active') }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for appointment in pager %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ appointment.title }}</td>
+                    <td class="whitespace-pre-wrap">{{ appointment.description }}</td>
+                    <td>{{ appointment.startAt|format_datetime('long', 'short') }}<br></td>
+                    <td>{{ appointment.endAt|format_datetime('long', 'short') }}</td>
+                    <td>{{ appointment.attendees|length }}</td>
+                    <td><input type="checkbox" class="toggle toggle-xs" disabled {{ appointment.active ? 'checked'}} /></td>
+                    <th>
+                        {%- if is_granted('ROLE_UPDATE_APPOINTMENT') -%}
+                            <a class="btn btn-xs btn-neutral" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">{{ 'Edit'|trans }}</a>
+                        {%- endif -%}
+                    </th>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">{{ 'No results found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

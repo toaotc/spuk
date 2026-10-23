@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{%- block title -%}{{ 'Kid groups'|trans }}{%- endblock -%}
+
+{%- block main_header_title -%}{{ 'Kid groups'|trans }}{%- endblock -%}
+
+{%- block main_header_button -%}
+    {%- if is_granted('ROLE_CREATE_KID_GROUP') -%}
+        <a class="btn btn-outline" href="{{ path('app_kidgroup_new') }}">{{ 'Create %name%'|trans({'%name%': 'kid group'|trans}) }}</a>
+    {%- endif -%}
+{%- endblock -%}
+
+{% block main_content %}
+    <div class="overflow-x-auto rounded bg-base-200">
+        <div class="flex flex-wrap items-baseline justify-between p-3">
+            {{ knp_pagination_render(pager) }}
+        </div>
+        <table class="table table-pin-rows table-pin-cols [&_*]:align-baseline">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ knp_pagination_sortable(pager, 'Name'|trans, 'kid_group.name') }}</th>
+                    <th>{{ 'Children'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for kidgroup in pager %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ kidgroup.name }}</td>
+                    <td>
+                        {%- for kid in kidgroup.kids
+                            |filter((k) => k.active)
+                            |sort((a, b) => a.name <=> b.name)
+                        %}
+                            {% if is_granted('ROLE_UPDATE_KID') -%}
+                                <a href="{{ path('app_kid_edit', {id: kid.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap mb-1">{{ kid.name }}</a>
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </td>
+                    <th>
+                        {%- if is_granted('ROLE_UPDATE_KID_GROUP') -%}
+                            <a class="btn btn-xs btn-neutral" href="{{ path('app_kidgroup_edit', {id: kidgroup.id}) }}">{{ 'Edit'|trans }}</a>
+                        {%- endif -%}
+                    </th>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">{{ 'No results found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

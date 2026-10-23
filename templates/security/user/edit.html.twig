@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Edit "%name%"'|trans({'%name%': user.username}) }}{% endblock %}
+
+{% block main_header_title %}{{ 'Edit "%name%"'|trans({'%name%': user.username}) }}{% endblock %}
+
+{%- block main_header_button -%}
+    {{ is_granted('ROLE_DELETE_USER') ? include('security/user/_delete_form.html.twig') }}
+{%- endblock -%}
+
+{% block main_content %}
+    {{ include('security/user/_form.html.twig', {'button_label': 'Update'|trans}) }}
+{% endblock %}

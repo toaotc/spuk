@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Termine für {{ guardian.name }}{% endblock %}
+
+{%- block main_header_title -%}Termine für {{ guardian.name }}{%- endblock -%}
+
+{% block main_content %}
+    <div class="flex flex-wrap gap-2">
+
+    {% for appointment in appointments %}
+        <div class="card w-96 bg-base-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">{{ appointment.title }}</h2>
+
+                <div class="flex gap-1">
+                    {% for kid in appointment.attendees
+                        |filter(k => k in guardian.kids)
+                    %}
+                        <span class="badge badge-soft">{{ kid.name }}</span>
+                    {% endfor %}
+                </div>
+
+                <p>{{ appointment.startAt|format_datetime('medium', 'short') }} - {{ appointment.endAt|format_datetime('none', 'short') }}</p>
+                <p class="whitespace-pre-wrap">{{ appointment.description }}</p>
+            </div>
+        </div>
+
+
+    {% endfor %}
+    </div>
+{% endblock %}

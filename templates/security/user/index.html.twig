@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{%- block title -%}{{ 'User'|trans }}{%- endblock -%}
+
+{%- block main_header_title -%}{{ 'User'|trans }}{%- endblock -%}
+
+{%- block main_header_button -%}
+    {%- if is_granted('ROLE_CREATE_USER') -%}
+        <a class="btn btn-outline" href="{{ path('app_security_user_new') }}">{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}</a>
+    {%- endif -%}
+{%- endblock -%}
+
+{% block main_content %}
+    <div class="overflow-x-auto rounded bg-base-200">
+        <div class="flex flex-wrap items-baseline justify-between p-3">
+            {{ knp_pagination_render(pager) }}
+        </div>
+        <table class="table table-pin-rows table-pin-cols [&_*]:align-baseline">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ knp_pagination_sortable(pager, 'Username'|trans, 'user.username') }}</th>
+                    <th>{{ 'Roles'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in pager %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        {% for role in user.roles|filter(r => r !== 'ROLE_USER') -%}
+                            <span class="badge badge-soft whitespace-nowrap mb-1">{{ role|trans }}</span>
+                        {% endfor %}
+                    </td>
+                    <th>
+                        {% if is_granted('ROLE_UPDATE_USER') %}
+                            <a class="btn btn-xs btn-neutral" href="{{ path('app_security_user_edit', {id: user.id}) }}">{{ 'Edit'|trans }}</a>
+                        {% endif %}
+                    </th>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">{{ 'No results found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

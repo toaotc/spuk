@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Create %name%'|trans({'%name%': 'kid group'|trans}) }}{% endblock %}
+
+{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'kid group'|trans}) }}{% endblock %}
+
+{% block main_content %}
+    {{ include('kidgroup/_form.html.twig') }}
+{% endblock %}

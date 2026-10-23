@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Edit "%name%"'|trans({'%name%': kid.name}) }}{% endblock %}
+
+{% block main_header_title %}{{ 'Edit "%name%"'|trans({'%name%': kid.name}) }}{% endblock %}
+
+{%- block main_header_button -%}
+    {{ is_granted('ROLE_DELETE_KID') ? include('kid/_delete_form.html.twig') }}
+{%- endblock -%}
+
+{% block main_content %}
+    {{ include('kid/_form.html.twig', {'button_label': 'Update'|trans}) }}
+{% endblock %}

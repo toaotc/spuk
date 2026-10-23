@@ -1,0 +1,53 @@
+
+{% if pageCount > 1 %}
+    <div class="join">
+
+        {# Previous page #}
+        {% if previous is defined %}
+            <a
+                href="{{ path(route, query|merge({(pageParameterName): previous})) }}"
+                class="join-item btn"
+            >
+                «
+            </a>
+        {% else %}
+            <button class="join-item btn btn-disabled" disabled>
+                «
+            </button>
+        {% endif %}
+
+        {# Page numbers #}
+        {% for page in pagesInRange %}
+            {% if page == current %}
+                <button
+                    class="join-item btn btn-active"
+                    aria-current="page"
+                >
+                    {{ page }}
+                </button>
+            {% else %}
+                <a
+                    href="{{ path(route, query|merge({(pageParameterName): page})) }}"
+                    class="join-item btn"
+                >
+                    {{ page }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {# Next page #}
+        {% if next is defined %}
+            <a
+                href="{{ path(route, query|merge({(pageParameterName): next})) }}"
+                class="join-item btn"
+            >
+                »
+            </a>
+        {% else %}
+            <button class="join-item btn btn-disabled" disabled>
+                »
+            </button>
+        {% endif %}
+
+    </div>
+{% endif %}

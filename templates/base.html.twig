@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="{{ app.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>Schlossgeisters Persönlicher Unternehmungskalender - {% block title %}SPUK{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+
+        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
+        {% if frankenphp_hot_reload %}
+        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
+        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
+        {% endif %}
+    </head>
+    <body class="flex flex-col min-h-screen max-h-screen bg-base-100">
+        <div class="max-sm:collapse shadow-sm w-full">
+            <input id="navbar-1-toggle" class="peer hidden" type="checkbox" />
+            <label for="navbar-1-toggle" class="fixed inset-0 hidden max-sm:peer-checked:block"></label>
+            <div class="collapse-title navbar px-5">
+                <div class="navbar-start">
+                    <label for="navbar-1-toggle" class="btn btn-square sm:hidden mr-3">
+                        <svg aria-label="Menu" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <a href="{{ path('app_home') }}" class="text-xl">S<small class="max-lg:hidden">chlossgeisters </small>P<small class="max-lg:hidden">ersönlicher </small>U<small class="max-lg:hidden">nternehmungs</small>K<small class="max-lg:hidden">alender</small></a>
+                </div>
+                <div class="navbar-center hidden sm:flex">
+                    <ul class="menu menu-horizontal">
+                        {% set menu -%}
+                            {% if is_granted('ROLE_READ_GUARDIAN') %}<li class="{{ app.current_route starts with 'app_guardian_' ? 'menu-active' }}"><a href="{{ path('app_guardian_index') }}">{{ 'Guardians'|trans }}</a></li>{% endif %}
+                            {% if is_granted('ROLE_READ_KID') %}<li class="{{ app.current_route starts with 'app_kid_' ? 'menu-active' }}"><a href="{{ path('app_kid_index') }}">{{ 'Kids'|trans }}</a></li>{% endif %}
+                            {% if is_granted('ROLE_READ_KID_GROUP') %}<li class="{{ app.current_route starts with 'app_kidgroup_' ? 'menu-active' }}"><a href="{{ path('app_kidgroup_index') }}">{{ 'Kid groups'|trans }}</a></li>{% endif %}
+                            {% if is_granted('ROLE_READ_APPOINTMENT') %}<li class="{{ app.current_route starts with 'app_appointment_' ? 'menu-active' }}"><a href="{{ path('app_appointment_index') }}">{{ 'Appointments'|trans }}</a></li>{% endif %}
+                            {% if is_granted('ROLE_READ_USER') %}<li class="{{ app.current_route starts with 'app_security_user_' ? 'menu-active' }}"><a href="{{ path('app_security_user_index') }}">{{ 'Users'|trans }}</a></li>{% endif %}
+                        {%- endset %}
+                        {{ menu|raw }}
+                    </ul>
+                </div>
+                <div class="navbar-end">
+                    <ul class="menu menu-horizontal pr-0">
+                        <li>
+                            {%- if app.user -%}
+                                <a href="{{ logout_path() }}" class="btn btn-square">
+                                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M569 337C578.4 327.6 578.4 312.4 569 303.1L425 159C418.1 152.1 407.8 150.1 398.8 153.8C389.8 157.5 384 166.3 384 176L384 256L272 256C245.5 256 224 277.5 224 304L224 336C224 362.5 245.5 384 272 384L384 384L384 464C384 473.7 389.8 482.5 398.8 486.2C407.8 489.9 418.1 487.9 425 481L569 337zM224 160C241.7 160 256 145.7 256 128C256 110.3 241.7 96 224 96L160 96C107 96 64 139 64 192L64 448C64 501 107 544 160 544L224 544C241.7 544 256 529.7 256 512C256 494.3 241.7 480 224 480L160 480C142.3 480 128 465.7 128 448L128 192C128 174.3 142.3 160 160 160L224 160z"/></svg>
+                                </a>
+                            {%- else -%}
+                                <a href="{{ path('app_login') }}" class="btn btn-square">
+                                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M409 337C418.4 327.6 418.4 312.4 409 303.1L265 159C258.1 152.1 247.8 150.1 238.8 153.8C229.8 157.5 224 166.3 224 176L224 256L112 256C85.5 256 64 277.5 64 304L64 336C64 362.5 85.5 384 112 384L224 384L224 464C224 473.7 229.8 482.5 238.8 486.2C247.8 489.9 258.1 487.9 265 481L409 337zM416 480C398.3 480 384 494.3 384 512C384 529.7 398.3 544 416 544L480 544C533 544 576 501 576 448L576 192C576 139 533 96 480 96L416 96C398.3 96 384 110.3 384 128C384 145.7 398.3 160 416 160L480 160C497.7 160 512 174.3 512 192L512 448C512 465.7 497.7 480 480 480L416 480z"/></svg>
+                                </a>
+                            {%- endif -%}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapse-content sm:hidden z-1">
+                <ul class="menu">
+                    {{ menu|raw }}
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex-grow overflow-y-auto bg-base-300">
+            {%- block body %}
+                {%- block main -%}
+                    {%- block main_header -%}
+                        <div class="flex justify-between items-center px-5 py-3 fixed glass inset-x-0 z-10">
+                            <h1 class="text-2xl">{%- block main_header_title '' -%}</h1>
+                            <div>{%- block main_header_button '' -%}</div>
+                        </div>
+                    {%- endblock -%}
+                    <div class="px-5 mt-20">
+                        {%- block main_content '' -%}
+                    </div>
+                {%- endblock -%}
+            {%- endblock -%}
+        </div>
+    </body>
+</html>

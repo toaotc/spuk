@@ -1,0 +1,7 @@
+{% form_theme form 'security/user/_form_theme.html.twig' %}
+
+{{ form_start(form, {attr: {class: 'max-w-96'}}) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Save'|trans) }}</button>
+    <a class="btn btn-outline" href="{{ path('app_security_user_index') }}">{{ 'Cancel'|trans }}</a>
+{{ form_end(form) }}

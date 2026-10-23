@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Edit "%name%"'|trans({'%name%': appointment.title}) }}{% endblock %}
+
+{%- block main_header_title -%}{{ 'Edit "%name%"'|trans({'%name%': appointment.title}) }}{%- endblock -%}
+
+{%- block main_header_button -%}
+    {{ is_granted('ROLE_DELETE_APPOINTMENT') ? include('appointment/_delete_form.html.twig') }}
+{%- endblock -%}
+
+{% block main_content %}
+    {{ include('appointment/_form.html.twig', {'button_label': 'Update'|trans}) }}
+{% endblock %}
