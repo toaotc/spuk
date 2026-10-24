@@ -2,7 +2,7 @@
 <html lang="{{ app.locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>Schlossgeisters Persönlicher Unternehmungskalender - {% block title %}SPUK{% endblock %}</title>
+        <title>Schlossgeisters persönlicher Unternehmungskalender - {% block title %}SPUK{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,{{ '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M168.1 531.1L156.9 540.1C153.7 542.6 149.8 544 145.8 544C136 544 128 536 128 526.2L128 256C128 150 214 64 320 64C426 64 512 150 512 256L512 526.2C512 536 504 544 494.2 544C490.2 544 486.3 542.6 483.1 540.1L471.9 531.1C458.5 520.4 439.1 522.1 427.8 535L397.3 570C394 573.8 389.1 576 384 576C378.9 576 374.1 573.8 370.7 570L344.1 539.5C331.4 524.9 308.7 524.9 295.9 539.5L269.3 570C266 573.8 261.1 576 256 576C250.9 576 246.1 573.8 242.7 570L212.2 535C200.9 522.1 181.5 520.4 168.1 531.1zM288 256C288 238.3 273.7 224 256 224C238.3 224 224 238.3 224 256C224 273.7 238.3 288 256 288C273.7 288 288 273.7 288 256zM384 288C401.7 288 416 273.7 416 256C416 238.3 401.7 224 384 224C366.3 224 352 238.3 352 256C352 273.7 366.3 288 384 288z"/></svg>'|escape('html') }}">
         {% block stylesheets %}
         {% endblock %}
@@ -27,7 +27,10 @@
                     <label for="navbar-1-toggle" class="btn btn-square sm:hidden mr-3">
                         <i class="fa-solid fa-bars"></i>
                     </label>
-                    <a href="{{ path('app_home') }}" class="text-xl">S<small class="max-lg:hidden">chlossgeisters </small>P<small class="max-lg:hidden">ersönlicher </small>U<small class="max-lg:hidden">nternehmungs</small>K<small class="max-lg:hidden">alender</small></a>
+                    <a href="{{ path('app_home') }}" class="font-medium">
+                        <span class="min-lg:hidden font-bold">SPUK</span>
+                        <span class="max-lg:hidden">Schlossgeisters persönlicher Unternehmungskalender</span>
+                    </a>
                 </div>
                 <div class="navbar-center hidden sm:flex">
                     <ul class="menu menu-horizontal">
@@ -44,11 +47,18 @@
                 <div class="navbar-end">
                     <ul class="menu menu-horizontal pr-0">
                         {%- if app.user -%}
-                            <li class="flex text-nowrap items-baseline">
-                                <a href="{{ logout_path() }}" class="">
-                                    <span>{{ 'Logged in as %username%'|trans({'%username%': '<span class="font-bold">' ~ app.user.username ~ '</span>'})|raw }}</span>
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                </a>
+                            <li>
+                                <details class="dropdown dropdown-end">
+                                    <summary>{{ 'Logged in as %username%'|trans({'%username%': '<span class="font-bold">' ~ app.user.username ~ '</span>'})|raw }}</summary>
+                                    <ul class="dropdown-content bg-base-100 rounded-t-none z-100 mt-0">
+                                        <li>
+                                            <a href="{{ logout_path() }}">
+                                                {{ 'Log out'|trans }}
+                                                <i class="fa-solid fa-right-from-bracket"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </details>
                             </li>
                         {%- endif -%}
                     </ul>
@@ -71,7 +81,7 @@
                             <div>{%- block main_header_button '' -%}</div>
                         </div>
                     {%- endblock -%}
-                    <div class="px-5 mt-20">
+                    <div class="px-5 pb-5 mt-20">
                         {%- block main_content '' -%}
                     </div>
                 {%- endblock -%}

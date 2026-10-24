@@ -294,6 +294,11 @@
             {% for label, choice in choices %}
                 <div>
                     <label class="label">
+                        <input type="checkbox"
+                               class="toggle toggle-xs"
+                               oninput="[...this.parentElement.parentElement.querySelectorAll('input[type=\'checkbox\']')].forEach(element => element.checked = this.checked)"
+                               foo="Array.from(this.parentElement.parentElement.querySelector('input[type=checkbox]')).forEach(element => element.checked = this.checked)"
+                        >
                         {{ choice_translation_domain is same as(false) ? label : label|trans({}, choice_translation_domain) }}
                     </label>
                     <div>

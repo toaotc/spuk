@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block _guardian_renew_uuid_row %}
+    <div class="divider"></div>
     {{ form_row(form, {
         label: 'Renew calendar link',
         help: 'When this switch is activated, the current calendar link will no longer be usable, and a new one will be created.',
-        attr: {class: 'toggle toggle-xs btn-check'}
+        attr: {class: 'toggle toggle-warning btn-check'},
+        row_attr: {class: 'text-warning mb-3'}
     }) }}
 {% endblock %}
 
