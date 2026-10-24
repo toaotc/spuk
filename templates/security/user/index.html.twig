@@ -19,25 +19,27 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>{{ knp_pagination_sortable(pager, 'Username'|trans, 'user.username') }}</th>
-                    <th>{{ 'Roles'|trans }}</th>
+                    <td>{{ knp_pagination_sortable(pager, 'Username'|trans, 'user.username') }}</td>
+                    <td colspan="5">{{ 'Roles'|trans }}</td>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
             {% for user in pager %}
                 <tr>
-                    <td>{{ loop.index }}</td>
+                    <th>{{ loop.index }}</th>
                     <td>{{ user.username }}</td>
+                    {% for section in ['APPOINTMENT', 'GUARDIAN', 'KID', 'KID_GROUP', 'USER'] %}
                     <td>
-                        {% for section in ['APPOINTMENT', 'GUARDIAN', 'KID', 'KID_GROUP', 'USER'] %}
+                        {% for action in ['ROLE_CREATE', 'ROLE_READ', 'ROLE_UPDATE', 'ROLE_DELETE'] %}
                             <div>
-                                {% for role in user.roles|filter(r => r !== 'ROLE_USER')|filter(r => r ends with section) -%}
+                                {% for role in user.roles|filter(r => r !== 'ROLE_USER')|filter(r => r ends with section)|filter(r => r starts with action) -%}
                                     <span class="badge badge-soft whitespace-nowrap my-0.5">{{ role|trans }}</span>
                                 {% endfor %}
                             </div>
                         {% endfor %}
                     </td>
+                    {% endfor %}
                     <th>
                         {% if is_granted('ROLE_UPDATE_USER') %}
                             <a class="btn btn-xs btn-neutral" href="{{ path('app_security_user_edit', {id: user.id}) }}">{{ 'Edit'|trans }}</a>
@@ -46,7 +48,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">{{ 'No results found'|trans }}</td>
+                    <td colspan="8">{{ 'No results found'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

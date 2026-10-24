@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.locale }}">
+<html lang="{{ app.locale|lower|replace({'_': '-'}) }}">
     <head>
         <meta charset="UTF-8">
         <title>Schlossgeisters persönlicher Unternehmungskalender - {% block title %}SPUK{% endblock %}</title>
