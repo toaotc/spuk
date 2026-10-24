@@ -4,5 +4,5 @@
 @source "../../assets";
 
 @plugin "../../tailwind/daisyui.mjs" {
-    themes: light --default, dark --prefersdark;
+    themes: silk --default, dim --prefersdark;
 }
