@@ -3,6 +3,10 @@
 @source "../../templates";
 @source "../../assets";
 
+@theme {
+    --breakpoint-xs: 30rem;
+}
+
 @plugin "../../tailwind/daisyui.mjs" {
     themes: silk --default, dim --prefersdark;
 }

@@ -19,12 +19,12 @@
         {% endif %}
     </head>
     <body class="flex flex-col min-h-screen max-h-screen bg-base-100">
-        <div class="max-sm:collapse shadow-sm w-full">
+        <div class="max-xs:collapse shadow-sm w-full z-100">
             <input id="navbar-1-toggle" class="peer hidden" type="checkbox" />
-            <label for="navbar-1-toggle" class="fixed inset-0 hidden max-sm:peer-checked:block"></label>
+            <label for="navbar-1-toggle" class="fixed inset-0 hidden max-xs:peer-checked:block"></label>
             <div class="collapse-title navbar px-5">
                 <div class="navbar-start">
-                    <label for="navbar-1-toggle" class="btn btn-square sm:hidden mr-3">
+                    <label for="navbar-1-toggle" class="btn btn-square xs:hidden mr-3">
                         <i class="fa-solid fa-bars"></i>
                     </label>
                     <a href="{{ path('app_home') }}" class="font-medium">
@@ -32,14 +32,55 @@
                         <span class="max-lg:hidden">Schlossgeisters persönlicher Unternehmungskalender</span>
                     </a>
                 </div>
-                <div class="navbar-center hidden sm:flex">
+                <div class="navbar-center hidden xs:flex">
                     <ul class="menu menu-horizontal">
+                        {% set menu_config = [
+                            {
+                                active_prefix: 'app_guardian_',
+                                icon_class: 'fa-people-group',
+                                role: constant('App\\Entity\\Security\\Roles::READ_GUARDIAN'),
+                                route: 'app_guardian_index',
+                                title: 'Guardians'|trans,
+                            },
+                            {
+                                active_prefix: 'app_kid_',
+                                icon_class: 'fa-children',
+                                role: constant('App\\Entity\\Security\\Roles::READ_KID'),
+                                route: 'app_kid_index',
+                                title: 'Kids'|trans,
+                            },
+                            {
+                                active_prefix: 'app_kidgroup_',
+                                icon_class: 'fa-users-viewfinder',
+                                role: constant('App\\Entity\\Security\\Roles::READ_KID_GROUP'),
+                                route: 'app_kidgroup_index',
+                                title: 'Kid groups'|trans,
+                            },
+                            {
+                                active_prefix: 'app_appointment_',
+                                icon_class: 'fa-calendar-days',
+                                role: constant('App\\Entity\\Security\\Roles::READ_APPOINTMENT'),
+                                route: 'app_appointment_index',
+                                title: 'Appointments'|trans,
+                            },
+                            {
+                                active_prefix: 'app_security_user_',
+                                icon_class: 'fa-user-group',
+                                role: constant('App\\Entity\\Security\\Roles::READ_USER'),
+                                route: 'app_security_user_index',
+                                title: 'Users'|trans,
+                            },
+                        ] %}
                         {% set menu -%}
-                            {% if is_granted('ROLE_READ_GUARDIAN') %}<li class="{{ app.current_route starts with 'app_guardian_' ? 'menu-active' }}"><a href="{{ path('app_guardian_index') }}"><i class="fa-solid fa-people-group"></i> {{ 'Guardians'|trans }}</a></li>{% endif %}
-                            {% if is_granted('ROLE_READ_KID') %}<li class="{{ app.current_route starts with 'app_kid_' ? 'menu-active' }}"><a href="{{ path('app_kid_index') }}"><i class="fa-solid fa-children"></i> {{ 'Kids'|trans }}</a></li>{% endif %}
-                            {% if is_granted('ROLE_READ_KID_GROUP') %}<li class="{{ app.current_route starts with 'app_kidgroup_' ? 'menu-active' }}"><a href="{{ path('app_kidgroup_index') }}"><i class="fa-solid fa-users-viewfinder"></i>{{ 'Kid groups'|trans }}</a></li>{% endif %}
-                            {% if is_granted('ROLE_READ_APPOINTMENT') %}<li class="{{ app.current_route starts with 'app_appointment_' ? 'menu-active' }}"><a href="{{ path('app_appointment_index') }}"><i class="fa-solid fa-calendar-days"></i> {{ 'Appointments'|trans }}</a></li>{% endif %}
-                            {% if is_granted('ROLE_READ_USER') %}<li class="{{ app.current_route starts with 'app_security_user_' ? 'menu-active' }}"><a href="{{ path('app_security_user_index') }}"><i class="fa-solid fa-user-group"></i> {{ 'Users'|trans }}</a></li>{% endif %}
+                            {%- for mc in menu_config %}
+                                {% if is_granted(mc.role) -%}
+                                    <li class="{{ app.current_route starts with mc.active_prefix ? 'menu-active' }}">
+                                        <a href="{{ path(mc.route) }}" class="min-xs:max-md:tooltip tooltip-bottom tooltip-start" data-tip="{{ mc.title }}">
+                                            <i class="fa-solid {{ mc.icon_class }}"></i>
+                                            <span class="min-xs:max-md:hidden">{{ mc.title }}</span>
+                                        </a>
+                                    </li>{%- endif %}
+                            {% endfor -%}
                         {%- endset %}
                         {{ menu|raw }}
                     </ul>
@@ -49,8 +90,10 @@
                         {%- if app.user -%}
                             <li>
                                 <details class="dropdown dropdown-end">
-                                    <summary>{{ 'Logged in as %username%'|trans({'%username%': '<span class="font-bold">' ~ app.user.username ~ '</span>'})|raw }}</summary>
-                                    <ul class="dropdown-content bg-base-100 rounded-t-none z-100 mt-0">
+                                    <summary>
+                                        <i class="fa-solid fa-user"></i>{{ app.user.username }}
+                                    </summary>
+                                    <ul class="dropdown-content bg-base-100 rounded-t-none z-1000 mt-0">
                                         <li>
                                             <a href="{{ logout_path() }}">
                                                 {{ 'Log out'|trans }}
@@ -65,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="collapse-content sm:hidden z-1">
+            <div class="collapse-content xs:hidden">
                 <ul class="menu">
                     {{ menu|raw }}
                 </ul>
