@@ -7,11 +7,15 @@ namespace App\Controller;
 use App\Entity\Guardian;
 use App\Entity\Kid;
 use App\Repository\AppointmentRepository;
+use DateInterval;
 use Eluceo\iCal\Domain\Entity\Calendar;
 use Eluceo\iCal\Domain\Entity\Event;
 use Eluceo\iCal\Domain\ValueObject\DateTime;
 use Eluceo\iCal\Domain\ValueObject\TimeSpan;
 use Eluceo\iCal\Domain\ValueObject\UniqueIdentifier;
+use Eluceo\iCal\Presentation\Component\Property;
+use Eluceo\iCal\Presentation\Component\Property\Value\DurationValue;
+use Eluceo\iCal\Presentation\Component\Property\Value\TextValue;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,10 +75,16 @@ class CalendarController extends AbstractController
             $calendar->addEvent($event);
         }
 
+        $calendar->setPublishedTTL(DateInterval::createFromDateString('1 hour'));
+
         $componentFactory = new CalendarFactory();
+        $component = $componentFactory->createCalendar($calendar)
+            ->withProperty(new Property('REFRESH-INTERVAL;VALUE=DURATION', new DurationValue($calendar->getPublishedTTL())))
+            ->withProperty(new Property('NAME', new TextValue('Kita Schlossgeister')))
+            ->withProperty(new Property('X-WR-CALNAME', new TextValue('Kita Schlossgeister')));
 
         return new Response(
-            (string)$componentFactory->createCalendar($calendar),
+            (string)$component,
             headers: [
                 'Content-Type' => 'text/calendar',
             ]
