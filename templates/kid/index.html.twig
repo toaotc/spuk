@@ -49,7 +49,9 @@
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ kid.active ? 'checked'}} /></td>
                     <th>
                         {%- if is_granted('ROLE_UPDATE_KID') -%}
-                            <a class="btn btn-xs btn-neutral" href="{{ path('app_kid_edit', {'id': kid.id}) }}">{{ 'Edit'|trans }}</a>
+                            <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_kid_edit', {'id': kid.id}) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
                         {%- endif -%}
                     </th>
                 </tr>

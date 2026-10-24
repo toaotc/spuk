@@ -61,7 +61,9 @@
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ guardian.active ? 'checked'}} /></td>
                     <th>
                         {%- if is_granted('ROLE_UPDATE_GUARDIAN') -%}
-                            <a class="btn btn-xs btn-neutral" href="{{ path('app_guardian_edit', {'id': guardian.id}) }}">{{ 'Edit'|trans }}</a>
+                            <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_guardian_edit', {'id': guardian.id}) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
                         {%- endif -%}
                     </th>
                 </tr>

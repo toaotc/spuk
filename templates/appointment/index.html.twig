@@ -48,7 +48,9 @@
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ appointment.active ? 'checked'}} /></td>
                     <th>
                         {%- if is_granted('ROLE_UPDATE_APPOINTMENT') -%}
-                            <a class="btn btn-xs btn-neutral" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">{{ 'Edit'|trans }}</a>
+                            <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
                         {%- endif -%}
                     </th>
                 </tr>

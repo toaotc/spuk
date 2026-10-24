@@ -42,7 +42,9 @@
                     {% endfor %}
                     <th>
                         {% if is_granted('ROLE_UPDATE_USER') %}
-                            <a class="btn btn-xs btn-neutral" href="{{ path('app_security_user_edit', {id: user.id}) }}">{{ 'Edit'|trans }}</a>
+                            <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_security_user_edit', {id: user.id}) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
                         {% endif %}
                     </th>
                 </tr>
