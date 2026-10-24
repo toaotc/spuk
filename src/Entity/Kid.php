@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\KidRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -92,8 +93,14 @@ class Kid
     /**
      * @return Collection<int, Guardian>
      */
-    public function getGuardians(): Collection
+    public function getGuardians(?bool $active = null): Collection
     {
+        if (!is_null($active)) {
+            return $this->guardians->matching(
+                Criteria::create()->where(Criteria::expr()->eq('active', $active))
+            );
+        }
+
         return $this->guardians;
     }
 
@@ -119,8 +126,14 @@ class Kid
     /**
      * @return Collection<int, Appointment>
      */
-    public function getAppointments(): Collection
+    public function getAppointments(?bool $active = null): Collection
     {
+        if (!is_null($active)) {
+            return $this->appointments->matching(
+                Criteria::create()->where(Criteria::expr()->eq('active', $active))
+            );
+        }
+
         return $this->appointments;
     }
 

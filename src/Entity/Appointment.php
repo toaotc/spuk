@@ -8,12 +8,14 @@ use App\Repository\AppointmentRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
 class Appointment
 {
@@ -124,8 +126,14 @@ class Appointment
     /**
      * @return Collection<int, Kid>
      */
-    public function getAttendees(): Collection
+    public function getAttendees(?bool $active = null): Collection
     {
+        if (!is_null($active)) {
+            return $this->attendees->matching(
+                Criteria::create()->where(Criteria::expr()->eq('active', $active))
+            );
+        }
+
         return $this->attendees;
     }
 

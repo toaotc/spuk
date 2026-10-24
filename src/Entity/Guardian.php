@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\GuardianRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
@@ -65,8 +66,14 @@ class Guardian
     /**
      * @return Collection<int, Kid>
      */
-    public function getKids(): Collection
+    public function getKids(?bool $active = null): Collection
     {
+        if (!is_null($active)) {
+            return $this->kids->matching(
+                Criteria::create()->where(Criteria::expr()->eq('active', $active))
+            );
+        }
+
         return $this->kids;
     }
 

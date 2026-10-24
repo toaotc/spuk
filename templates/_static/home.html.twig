@@ -1,1 +1,54 @@
 {% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="flex items-center justify-center p-6">
+        <div class="stats max-xs:stats-vertical shadow bg-base-200">
+            <div class="stat place-items-center">
+                <div class="stat-figure text-secondary">
+                    <i class="fa-solid fa-people-group fa-xl"></i>
+                </div>
+                <div class="stat-title">{{ 'Guardians'|trans }}</div>
+                <div class="stat-value">{{ guardianRepository.count }}</div>
+                <div class="stat-desc">
+                    {{ 'Active'|trans }}: {{ guardianRepository.count({'active': true}) }}
+                </div>
+                <div class="stat-desc">
+                    {{ 'Inactive'|trans }}: {{ guardianRepository.count({'active': false}) }}
+                </div>
+            </div>
+
+            <div class="stat place-items-center">
+                <div class="stat-figure text-secondary">
+                    <i class="fa-solid fa-children fa-xl"></i>
+                </div>
+                <div class="stat-title">{{ 'Kids'|trans }}</div>
+                <div class="stat-value">{{ kidRepository.count }}</div>
+                <div class="stat-desc">
+                    {{ 'Active'|trans }}: {{ kidRepository.count({'active': true}) }}
+                    &bullet;
+                    {{ 'Inactive'|trans }}: {{ kidRepository.count({'active': false}) }}
+                </div>
+                <div class="stat-desc">
+                    {% for kid_group in kidGroupRepository.findAll %}
+                        {{ not loop.first ? '&bullet;' }}
+                        {{ kid_group.name }}: {{ kid_group.kids(true)|length }}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="stat place-items-center">
+                <div class="stat-figure text-secondary">
+                    <i class="fa-solid fa-calendar-days fa-xl"></i>
+                </div>
+                <div class="stat-title">{{ 'Appointments'|trans }}</div>
+                <div class="stat-value">{{ appointmentRepository.count }}</div>
+                <div class="stat-desc">
+                    {{ 'Active'|trans }}: {{ appointmentRepository.count({'active': true}) }}
+                </div>
+                <div class="stat-desc">
+                    {{ 'Inactive'|trans }}: {{ appointmentRepository.count({'active': false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
