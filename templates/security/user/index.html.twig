@@ -30,8 +30,12 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ user.username }}</td>
                     <td>
-                        {% for role in user.roles|filter(r => r !== 'ROLE_USER') -%}
-                            <span class="badge badge-soft whitespace-nowrap my-0.5">{{ role|trans }}</span>
+                        {% for section in ['APPOINTMENT', 'GUARDIAN', 'KID', 'KID_GROUP', 'USER'] %}
+                            <div>
+                                {% for role in user.roles|filter(r => r !== 'ROLE_USER')|filter(r => r ends with section) -%}
+                                    <span class="badge badge-soft whitespace-nowrap my-0.5">{{ role|trans }}</span>
+                                {% endfor %}
+                            </div>
                         {% endfor %}
                     </td>
                     <th>
