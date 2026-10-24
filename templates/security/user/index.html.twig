@@ -2,7 +2,10 @@
 
 {%- block title -%}{{ 'User'|trans }}{%- endblock -%}
 
-{%- block main_header_title -%}{{ 'User'|trans }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-user-group"></i>
+    {{ 'User'|trans }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {%- if is_granted('ROLE_CREATE_USER') -%}

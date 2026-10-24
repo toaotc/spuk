@@ -11,7 +11,10 @@
 
 {% block title %}{{ 'Edit "%name%"'|trans({'%name%': guardian.name}) }}{% endblock %}
 
-{%- block main_header_title -%}{{ 'Edit "%name%"'|trans({'%name%': guardian.name}) }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-people-group"></i>
+    {{ 'Edit "%name%"'|trans({'%name%': guardian.name}) }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {{ is_granted('ROLE_DELETE_GUARDIAN') ? include('guardian/_delete_form.html.twig') }}

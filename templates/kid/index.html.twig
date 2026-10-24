@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Kids'|trans }}{% endblock %}
 
-{%- block main_header_title -%}{{ 'Kids'|trans }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-children"></i>
+    {{ 'Kids'|trans }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {%- if is_granted('ROLE_CREATE_KID') -%}

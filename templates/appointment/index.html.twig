@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Appointment'|trans }}{% endblock %}
 
-{%- block main_header_title -%}{{ 'Appointments'|trans }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-calendar-days"></i>
+    {{ 'Appointments'|trans }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {%- if is_granted('ROLE_CREATE_APPOINTMENT') -%}

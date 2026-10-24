@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Edit "%name%"'|trans({'%name%': appointment.title}) }}{% endblock %}
 
-{%- block main_header_title -%}{{ 'Edit "%name%"'|trans({'%name%': appointment.title}) }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-calendar-day"></i>
+    {{ 'Edit "%name%"'|trans({'%name%': appointment.title}) }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {{ is_granted('ROLE_DELETE_APPOINTMENT') ? include('appointment/_delete_form.html.twig') }}

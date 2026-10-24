@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Create %name%'|trans({'%name%': 'guardian'|trans}) }}{% endblock %}
 
-{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'guardian'|trans}) }}{% endblock %}
+{%- block main_header_title -%}
+    <i class="fas fa-people-group"></i>
+    {{ 'Create %name%'|trans({'%name%': 'guardian'|trans}) }}
+{%- endblock -%}
 
 {% block main_content %}
     {{ include('guardian/_form.html.twig') }}

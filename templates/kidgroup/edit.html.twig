@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Edit "%name%"'|trans({'%name%': kidgroup.name}) }}{% endblock %}
 
-{% block main_header_title %}{{ 'Edit "%name%"'|trans({'%name%': kidgroup.name}) }}{% endblock %}
+{%- block main_header_title -%}
+    <i class="fas fa-users-viewfinder"></i>
+    {{ 'Edit "%name%"'|trans({'%name%': kidgroup.name}) }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {{ is_granted('ROLE_DELETE_KID_GROUP') ? include('kidgroup/_delete_form.html.twig') }}

@@ -2,7 +2,10 @@
 
 {%- block title -%}{{ 'Kid groups'|trans }}{%- endblock -%}
 
-{%- block main_header_title -%}{{ 'Kid groups'|trans }}{%- endblock -%}
+{%- block main_header_title -%}
+    <i class="fas fa-users-viewfinder"></i>
+    {{ 'Kid groups'|trans }}
+{%- endblock -%}
 
 {%- block main_header_button -%}
     {%- if is_granted('ROLE_CREATE_KID_GROUP') -%}

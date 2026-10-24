@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Create %name%'|trans({'%name%': 'kid'|trans}) }}{% endblock %}
 
-{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'kid'|trans}) }}{% endblock %}
+{%- block main_header_title -%}
+    <i class="fas fa-children"></i>
+    {{ 'Create %name%'|trans({'%name%': 'kid'|trans}) }}
+{%- endblock -%}
 
 {% block main_content %}
     {{ include('kid/_form.html.twig') }}

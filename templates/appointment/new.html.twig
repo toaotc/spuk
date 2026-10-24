@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Create %name%'|trans({'%name%': 'appointment'|trans}) }}{% endblock %}
 
-{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'appointment'|trans}) }}{% endblock %}
+{%- block main_header_title -%}
+    <i class="fas fa-calendar-day"></i>
+    {{ 'Create %name%'|trans({'%name%': 'appointment'|trans}) }}
+{%- endblock -%}
 
 {% block main_content %}
     {{ include('appointment/_form.html.twig') }}

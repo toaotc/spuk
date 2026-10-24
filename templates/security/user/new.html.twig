@@ -2,7 +2,10 @@
 
 {% block title %}{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}{% endblock %}
 
-{% block main_header_title %}{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}{% endblock %}
+{%- block main_header_title -%}
+    <i class="fas fa-user-group"></i>
+    {{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}
+{%- endblock -%}
 
 {% block main_content %}
     {{ include('security/user/_form.html.twig') }}
