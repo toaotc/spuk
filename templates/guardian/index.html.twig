@@ -8,7 +8,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {%- if is_granted('ROLE_CREATE_GUARDIAN') -%}
+    {%- if is_granted(constant('App\\Entity\\Security\\Roles::CREATE_GUARDIAN')) -%}
         <a class="btn btn-outline" href="{{ path('app_guardian_new') }}">{{ 'Create %name%'|trans({'%name%': 'guardian'|trans}) }}</a>
     {%- endif -%}
 {%- endblock -%}
@@ -56,14 +56,14 @@
                             |filter((k) => k.active)
                             |sort((a, b) => a.name <=> b.name)
                         %}
-                            {% if is_granted('ROLE_UPDATE_KID') -%}
+                            {% if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_KID')) -%}
                                 <a href="{{ path('app_kid_edit', {id: kid.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ kid.name }}</a>
                             {%- endif -%}
                         {%- endfor -%}
                     </td>
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ guardian.active ? 'checked'}} /></td>
                     <th>
-                        {%- if is_granted('ROLE_UPDATE_GUARDIAN') -%}
+                        {%- if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_GUARDIAN')) -%}
                             <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_guardian_edit', {'id': guardian.id}) }}">
                                 <i class="fa fa-edit"></i>
                             </a>

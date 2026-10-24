@@ -8,7 +8,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {%- if is_granted('ROLE_CREATE_APPOINTMENT') -%}
+    {%- if is_granted(constant('App\\Entity\\Security\\Roles::CREATE_APPOINTMENT')) -%}
         <a class="btn btn-outline" href="{{ path('app_appointment_new') }}">{{ 'Create %name%'|trans({'%name%': 'appointment'|trans}) }}</a>
     {%- endif -%}
 {%- endblock -%}
@@ -50,7 +50,7 @@
                     <td>{{ appointment.attendees|length }}</td>
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ appointment.active ? 'checked'}} /></td>
                     <th>
-                        {%- if is_granted('ROLE_UPDATE_APPOINTMENT') -%}
+                        {%- if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_APPOINTMENT')) -%}
                             <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">
                                 <i class="fa fa-edit"></i>
                             </a>

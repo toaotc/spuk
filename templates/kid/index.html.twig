@@ -8,7 +8,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {%- if is_granted('ROLE_CREATE_KID') -%}
+    {%- if is_granted(constant('App\\Entity\\Security\\Roles::CREATE_KID')) -%}
         <a class="btn btn-outline" href="{{ path('app_kid_new') }}">{{ 'Create %name%'|trans({'%name%': 'kid'|trans}) }}</a>
     {%- endif -%}
 {%- endblock -%}
@@ -35,7 +35,7 @@
                     <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ kid.name }}</td>
                     <td>
-                        {%- if is_granted('ROLE_UPDATE_KID_GROUP') -%}
+                        {%- if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_KID_GROUP')) -%}
                             <a href="{{ path('app_kidgroup_edit', {id: kid.kidGroup.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ kid.kidGroup.name }}</a>
                         {%- endif -%}
                     </td>
@@ -44,14 +44,14 @@
                             |filter((g) => g.active)
                             |sort((a, b) => a.name <=> b.name)
                         %}
-                            {% if is_granted('ROLE_UPDATE_GUARDIAN') -%}
+                            {% if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_GUARDIAN')) -%}
                                 <a href="{{ path('app_guardian_edit', {id: guardian.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ guardian.name }}</a>
                             {%- endif -%}
                         {%- endfor -%}
                     </td>
                     <td><input type="checkbox" class="toggle toggle-xs" disabled {{ kid.active ? 'checked'}} /></td>
                     <th>
-                        {%- if is_granted('ROLE_UPDATE_KID') -%}
+                        {%- if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_KID')) -%}
                             <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_kid_edit', {'id': kid.id}) }}">
                                 <i class="fa fa-edit"></i>
                             </a>

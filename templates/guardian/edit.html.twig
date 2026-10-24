@@ -17,7 +17,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {{ is_granted('ROLE_DELETE_GUARDIAN') ? include('guardian/_delete_form.html.twig') }}
+    {{ is_granted(constant('App\\Entity\\Security\\Roles::DELETE_GUARDIAN')) ? include('guardian/_delete_form.html.twig') }}
 {%- endblock -%}
 
 {% block main_content %}

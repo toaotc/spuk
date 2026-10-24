@@ -8,7 +8,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {%- if is_granted('ROLE_CREATE_USER') -%}
+    {%- if is_granted(constant('App\\Entity\\Security\\Roles::CREATE_USER')) -%}
         <a class="btn btn-outline" href="{{ path('app_security_user_new') }}">{{ 'Create %name%'|trans({'%name%': 'user'|trans}) }}</a>
     {%- endif -%}
 {%- endblock -%}
@@ -36,7 +36,7 @@
                     <td>
                         {% for action in ['ROLE_CREATE', 'ROLE_READ', 'ROLE_UPDATE', 'ROLE_DELETE'] %}
                             <div>
-                                {% for role in user.roles|filter(r => r !== 'ROLE_USER')|filter(r => r ends with section)|filter(r => r starts with action) -%}
+                                {% for role in user.roles|filter(r => r !== constant('App\\Entity\\Security\\Roles::USER'))|filter(r => r ends with section)|filter(r => r starts with action) -%}
                                     <span class="badge badge-soft whitespace-nowrap my-0.5">{{ role|trans }}</span>
                                 {% endfor %}
                             </div>
@@ -44,7 +44,7 @@
                     </td>
                     {% endfor %}
                     <th>
-                        {% if is_granted('ROLE_UPDATE_USER') %}
+                        {% if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_USER')) %}
                             <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_security_user_edit', {id: user.id}) }}">
                                 <i class="fa fa-edit"></i>
                             </a>

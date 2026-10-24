@@ -8,7 +8,7 @@
 {%- endblock -%}
 
 {%- block main_header_button -%}
-    {%- if is_granted('ROLE_CREATE_KID_GROUP') -%}
+    {%- if is_granted(constant('App\\Entity\\Security\\Roles::CREATE_KID_GROUP')) -%}
         <a class="btn btn-outline" href="{{ path('app_kidgroup_new') }}">{{ 'Create %name%'|trans({'%name%': 'kid group'|trans}) }}</a>
     {%- endif -%}
 {%- endblock -%}
@@ -37,13 +37,13 @@
                             |filter((k) => k.active)
                             |sort((a, b) => a.name <=> b.name)
                         %}
-                            {% if is_granted('ROLE_UPDATE_KID') -%}
+                            {% if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_KID')) -%}
                                 <a href="{{ path('app_kid_edit', {id: kid.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ kid.name }}</a>
                             {%- endif -%}
                         {%- endfor -%}
                     </td>
                     <th>
-                        {%- if is_granted('ROLE_UPDATE_KID_GROUP') -%}
+                        {%- if is_granted(constant('App\\Entity\\Security\\Roles::UPDATE_KID_GROUP')) -%}
                             <a class="btn btn-xs btn-square tooltip tooltip-left" data-tip="{{ 'Edit'|trans }}" href="{{ path('app_kidgroup_edit', {id: kidgroup.id}) }}">
                                 <i class="fa fa-edit"></i>
                             </a>
