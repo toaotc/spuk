@@ -29,7 +29,7 @@
             <tbody>
             {% for kid in pager %}
                 <tr>
-                    <th>{{ loop.index }}</th>
+                    <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ kid.name }}</td>
                     <td>
                         {%- if is_granted('ROLE_UPDATE_KID_GROUP') -%}

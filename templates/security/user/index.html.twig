@@ -27,7 +27,7 @@
             <tbody>
             {% for user in pager %}
                 <tr>
-                    <th>{{ loop.index }}</th>
+                    <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ user.username }}</td>
                     {% for section in ['APPOINTMENT', 'GUARDIAN', 'KID', 'KID_GROUP', 'USER'] %}
                     <td>

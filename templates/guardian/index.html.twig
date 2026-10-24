@@ -29,7 +29,7 @@
             <tbody>
             {% for guardian in pager %}
                 <tr>
-                    <th>{{ loop.index }}</th>
+                    <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ guardian.name }}</td>
                     <td>
                         <a

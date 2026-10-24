@@ -39,7 +39,7 @@
             <tbody>
             {% for appointment in pager %}
                 <tr>
-                    <th>{{ loop.index }}</th>
+                    <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ appointment.title }}</td>
                     <td class="whitespace-pre-wrap">{{ appointment.description }}</td>
                     <td>{{ appointment.startAt|format_datetime('long', 'short') }}<br></td>

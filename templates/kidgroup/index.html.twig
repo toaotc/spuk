@@ -27,7 +27,7 @@
             <tbody>
             {% for kidgroup in pager %}
                 <tr>
-                    <th>{{ loop.index }}</th>
+                    <th>{{ loop.index + (pager.itemNumberPerPage * (pager.currentPageNumber - 1)) }}</th>
                     <td>{{ kidgroup.name }}</td>
                     <td>
                         {%- for kid in kidgroup.kids
