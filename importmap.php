@@ -16,4 +16,8 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    '@fortawesome/fontawesome-free/css/all.css' => [
+        'version' => '7.3.1',
+        'type' => 'css',
+    ],
 ];

@@ -33,7 +33,7 @@
                     <td>{{ kid.name }}</td>
                     <td>
                         {%- if is_granted('ROLE_UPDATE_KID_GROUP') -%}
-                            <a href="{{ path('app_kidgroup_edit', {id: kid.kidGroup.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap mb-1">{{ kid.kidGroup.name }}</a>
+                            <a href="{{ path('app_kidgroup_edit', {id: kid.kidGroup.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ kid.kidGroup.name }}</a>
                         {%- endif -%}
                     </td>
                     <td>
@@ -42,7 +42,7 @@
                             |sort((a, b) => a.name <=> b.name)
                         %}
                             {% if is_granted('ROLE_UPDATE_GUARDIAN') -%}
-                                <a href="{{ path('app_guardian_edit', {id: guardian.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap mb-1">{{ guardian.name }}</a>
+                                <a href="{{ path('app_guardian_edit', {id: guardian.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ guardian.name }}</a>
                             {%- endif -%}
                         {%- endfor -%}
                     </td>

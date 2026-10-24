@@ -35,7 +35,7 @@
                             |sort((a, b) => a.name <=> b.name)
                         %}
                             {% if is_granted('ROLE_UPDATE_KID') -%}
-                                <a href="{{ path('app_kid_edit', {id: kid.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap mb-1">{{ kid.name }}</a>
+                                <a href="{{ path('app_kid_edit', {id: kid.id}) }}" class="btn btn-outline btn-xs whitespace-nowrap my-0.5">{{ kid.name }}</a>
                             {%- endif -%}
                         {%- endfor -%}
                     </td>

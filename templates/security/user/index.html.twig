@@ -31,7 +31,7 @@
                     <td>{{ user.username }}</td>
                     <td>
                         {% for role in user.roles|filter(r => r !== 'ROLE_USER') -%}
-                            <span class="badge badge-soft whitespace-nowrap mb-1">{{ role|trans }}</span>
+                            <span class="badge badge-soft whitespace-nowrap my-0.5">{{ role|trans }}</span>
                         {% endfor %}
                     </td>
                     <th>
