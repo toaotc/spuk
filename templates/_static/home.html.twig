@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block main %}
+{% block main_content %}
     <div class="flex items-center justify-center p-6">
         <div class="stats max-xs:stats-vertical shadow bg-base-200">
             <div class="stat place-items-center">
-                <div class="stat-figure text-secondary">
-                    <i class="fa-solid fa-people-group fa-xl"></i>
+                <div class="stat-title text-secondary">
+                    <i class="fa-solid fa-people-group fa-2xl"></i>
                 </div>
-                <div class="stat-title">{{ 'Guardians'|trans }}</div>
                 <div class="stat-value">{{ guardianRepository.count }}</div>
                 <div class="stat-desc">
                     {{ 'Active'|trans }}: {{ guardianRepository.count({'active': true}) }}
@@ -18,10 +17,9 @@
             </div>
 
             <div class="stat place-items-center">
-                <div class="stat-figure text-secondary">
-                    <i class="fa-solid fa-children fa-xl"></i>
+                <div class="stat-title text-secondary">
+                    <i class="fa-solid fa-children fa-2xl"></i>
                 </div>
-                <div class="stat-title">{{ 'Kids'|trans }}</div>
                 <div class="stat-value">{{ kidRepository.count }}</div>
                 <div class="stat-desc">
                     {{ 'Active'|trans }}: {{ kidRepository.count({'active': true}) }}
@@ -37,10 +35,9 @@
             </div>
 
             <div class="stat place-items-center">
-                <div class="stat-figure text-secondary">
-                    <i class="fa-solid fa-calendar-days fa-xl"></i>
+                <div class="stat-title text-secondary">
+                    <i class="fa-solid fa-calendar-days fa-2xl"></i>
                 </div>
-                <div class="stat-title">{{ 'Appointments'|trans }}</div>
                 <div class="stat-value">{{ appointmentRepository.count }}</div>
                 <div class="stat-desc">
                     {{ 'Active'|trans }}: {{ appointmentRepository.count({'active': true}) }}
