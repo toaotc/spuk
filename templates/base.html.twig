@@ -39,46 +39,18 @@
                     <ul class="menu menu-horizontal">
                         {% set menu_config = [
                             {
-                                active_prefix: 'app_guardian_',
-                                icon_class: 'fa-people-group',
-                                role: constant('App\\Entity\\Security\\Roles::READ_GUARDIAN'),
-                                route: 'app_guardian_index',
-                                title: 'Guardians'|trans,
-                            },
-                            {
-                                active_prefix: 'app_kid_',
-                                icon_class: 'fa-children',
-                                role: constant('App\\Entity\\Security\\Roles::READ_KID'),
-                                route: 'app_kid_index',
-                                title: 'Kids'|trans,
-                            },
-                            {
-                                active_prefix: 'app_kidgroup_',
-                                icon_class: 'fa-users-viewfinder',
-                                role: constant('App\\Entity\\Security\\Roles::READ_KID_GROUP'),
-                                route: 'app_kidgroup_index',
-                                title: 'Kid groups'|trans,
-                            },
-                            {
-                                active_prefix: 'app_appointment_',
+                                active: app.current_route starts with 'app_appointment_',
                                 icon_class: 'fa-calendar-days',
-                                role: constant('App\\Entity\\Security\\Roles::READ_APPOINTMENT'),
+                                accessible: is_granted(constant('App\\Entity\\Security\\Roles::READ_APPOINTMENT')),
                                 route: 'app_appointment_index',
                                 title: 'Appointments'|trans,
-                            },
-                            {
-                                active_prefix: 'app_security_user_',
-                                icon_class: 'fa-user-group',
-                                role: constant('App\\Entity\\Security\\Roles::READ_USER'),
-                                route: 'app_security_user_index',
-                                title: 'Users'|trans,
                             },
                         ] %}
                         {% set menu -%}
                             {%- for mc in menu_config %}
-                                {% if is_granted(mc.role) -%}
-                                    <li class="{{ app.current_route starts with mc.active_prefix ? 'menu-active' }}">
-                                        <a href="{{ path(mc.route) }}" class="min-xs:max-md:tooltip tooltip-bottom tooltip-start" data-tip="{{ mc.title }}">
+                                {% if mc.accessible -%}
+                                    <li>
+                                        <a href="{{ path(mc.route) }}" class="{{ mc.active ? 'menu-active' }} min-xs:max-md:tooltip tooltip-bottom tooltip-start" data-tip="{{ mc.title }}">
                                             <i class="fa-solid {{ mc.icon_class }}"></i>
                                             <span class="min-xs:max-md:hidden">{{ mc.title }}</span>
                                         </a>
@@ -89,24 +61,74 @@
                     </ul>
                 </div>
                 <div class="navbar-end">
-                    <ul class="menu menu-horizontal pr-0">
+                    <ul class="menu menu-horizontal">
                         {%- if app.user -%}
                             <li>
                                 <details class="dropdown dropdown-end">
-                                    <summary>
-                                        <i class="fa-solid fa-user"></i>{{ app.user.username }}
+                                    <summary class="rounded-full">
+                                        <i class="fa-solid fa-user"></i>
+                                        {{ app.user.username }}
                                     </summary>
-                                    <ul class="dropdown-content bg-base-100 rounded-t-none z-1000 mt-0">
+                                    <ul tabindex="-1" class="dropdown-content bg-base-100 z-1000 shadow">
+                                        <li>
+                                            <a class="menu-title">
+                                                <i class="fas fa-cogs"></i>
+                                                {{ 'Settings'|trans }}
+                                            </a>
+                                            <ul>
+                                                {% set admin_menu_config = [
+                                                    {
+                                                        active: app.current_route starts with 'app_guardian_',
+                                                        icon_class: 'fa-people-group',
+                                                        accessible: is_granted(constant('App\\Entity\\Security\\Roles::READ_GUARDIAN')),
+                                                        route: 'app_guardian_index',
+                                                        title: 'Guardians'|trans,
+                                                    },
+                                                    {
+                                                        active: app.current_route starts with 'app_kid_',
+                                                        icon_class: 'fa-children',
+                                                        accessible: is_granted(constant('App\\Entity\\Security\\Roles::READ_KID')),
+                                                        route: 'app_kid_index',
+                                                        title: 'Kids'|trans,
+                                                    },
+                                                    {
+                                                        active: app.current_route starts with 'app_kidgroup_',
+                                                        icon_class: 'fa-users-viewfinder',
+                                                        accessible: is_granted(constant('App\\Entity\\Security\\Roles::READ_KID_GROUP')),
+                                                        route: 'app_kidgroup_index',
+                                                        title: 'Kid groups'|trans,
+                                                    },
+                                                    {
+                                                        active: app.current_route starts with 'app_security_user_',
+                                                        icon_class: 'fa-user-group',
+                                                        accessible: is_granted(constant('App\\Entity\\Security\\Roles::READ_USER')),
+                                                        route: 'app_security_user_index',
+                                                        title: 'Users'|trans,
+                                                    },
+                                                ] %}
+                                                {% for amc in admin_menu_config %}
+                                                    {% if amc.accessible %}
+                                                        <li>
+                                                            <a class="{{ amc.active ? 'menu-active' }}" href="{{ path(amc.route) }}">
+                                                                <i class="fas {{ amc.icon_class }}"></i>
+                                                                {{ amc.title }}
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li class="divider h-0.25 m-1"></li>
                                         <li>
                                             <a href="{{ logout_path() }}">
-                                                {{ 'Log out'|trans }}
                                                 <i class="fa-solid fa-right-from-bracket"></i>
+                                                {{ 'Logout'|trans }}
                                             </a>
                                         </li>
                                     </ul>
                                 </details>
                             </li>
-                        {%- endif -%}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
